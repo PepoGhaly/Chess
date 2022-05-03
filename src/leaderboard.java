@@ -59,18 +59,18 @@ public class leaderboard extends MouseAdapter implements MouseListener{
             // bt3ml load JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
             //bt3aml b2a connection l JDBC driver
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/leaderboared","root","112000@Pp");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/chess","root","");
             // 8albn awl parameter dh constant fo kolo
 
             // b3d kda bt3ml statement 34an t execute el query
             stmt = conn.createStatement();
             // di b2a bttkrr 3la hasb 3dd el query elly 3ndk
-            ResultSet rs = stmt.executeQuery("select * from leaderboared.leader order by score desc limit 8");
+            ResultSet rs = stmt.executeQuery("select * from leaderboard order by score desc limit 8");
             // rs.next() dh tol ma fi lsa result rag3a mn el query b true
             for (int i=0;i<8&& rs.next();i++) {
                 // 34an tgeb el value el query hyrg3o getString(datatype bta3t el column)(asm el column)
-                System.out.println(rs.getString("user_name")+" "+rs.getString("score"));
-                Names[i].setText(rs.getString("user_name"));
+                System.out.println(rs.getString("name")+" "+rs.getString("score"));
+                Names[i].setText(rs.getString("name"));
                 Score[i].setText(rs.getString("score"));
             }
             for(int i=0;i<8;i++){
@@ -85,6 +85,7 @@ public class leaderboard extends MouseAdapter implements MouseListener{
         }
         catch (ClassNotFoundException e){
             e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
 
@@ -114,7 +115,7 @@ public class leaderboard extends MouseAdapter implements MouseListener{
     static public void insert(String name , int score){
         try {
             String temp = "INSERT INTO leaderboared.leader VALUES( ? ,?)";
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/leaderboared","root","112000@Pp");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/chess","root","");
             pst=conn.prepareStatement(temp);
             pst.setString(1,name);
             pst.setString(2,Integer.toString(score));
